@@ -23,7 +23,8 @@
         <TextBlock HorizontalAlignment="Left" Margin="259,75,0,0" TextWrapping="Wrap" Text="Tiempo Final" VerticalAlignment="Top"/>
         <TextBox x:Name="txtTiempo_Final" HorizontalAlignment="Left" Height="16" Margin="248,99,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="123"/>
         <Button x:Name="BtnGraficar" Content="Graficar" HorizontalAlignment="Left" Margin="582,0,0,0" VerticalAlignment="Top" Width="200" Height="107" Click="Graficar_Click"/>
-        <ScrollViewer HorizontalAlignment="Left" Height="272" Margin="10,10,0,0" Grid.Row="1" VerticalAlignment="Top" Width="772" VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Visible">
+        <ScrollViewer HorizontalAlignment="Left" Height="272" Margin="47,10,0,0" Grid.Row="1" VerticalAlignment="Top" Width="700
+                      " VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Visible">
             <Polyline Stroke="CornflowerBlue" StrokeThickness="2" Name="plnGrafica" ></Polyline>
         </ScrollViewer>
         <TextBlock HorizontalAlignment="Left" Margin="407,35,0,0" TextWrapping="Wrap" Text="Frecuencia De Muestreo" VerticalAlignment="Top"/>

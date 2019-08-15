@@ -25,11 +25,6 @@ namespace GraficadorSeñales
         public MainWindow()
         {
             InitializeComponent();
-            plnGrafica.Points.Add(new Point(10, 6));
-            plnGrafica.Points.Add(new Point(100, 56));
-            plnGrafica.Points.Add(new Point(150, 46));
-            plnGrafica.Points.Add(new Point(100000, 1000));
-       
 
         }
 
@@ -46,7 +41,7 @@ namespace GraficadorSeñales
             plnGrafica.Points.Clear();
             for (double i = tiempoinicial; i<= tiempofinal;i += periodoMuestreo)
             {
-
+                plnGrafica.Points.Add(new Point(i ,senoidal.evaluar(i)));
             }
         }
     }
