@@ -41,12 +41,15 @@ namespace GraficadorSeñales
             plnGrafica.Points.Clear();
             for (double i = tiempoinicial; i<= tiempofinal;i += periodoMuestreo)
             {
-                plnGrafica.Points.Add( adaptarCoordenadas(i, senoidal.evaluar(i)));
+                plnGrafica.Points.Add( adaptarCoordenadas(i, senoidal.evaluar(i), tiempoinicial));
             }
+            pnlEjeX.Points.Clear();
+            pnlEjeX.Points.Add(adaptarCoordenadas(tiempoinicial, 0.0, tiempoinicial));
+            pnlEjeX.Points.Add(adaptarCoordenadas(tiempofinal, 0.0, tiempoinicial));
         }
-        public Point adaptarCoordenadas(double x,double y)
+        public Point adaptarCoordenadas(double x,double y,double tiempoInicial)
         {
-            return new Point(x * scrGrafica.Width, (-1 * (y * ((scrGrafica.Height/2) -25) )) + (scrGrafica.Height/2.0) );
+            return new Point((x - tiempoInicial) * scrGrafica.Width, (-1 * (y * ((scrGrafica.Height/2) -25) )) + (scrGrafica.Height/2.0) );
         }
     }
 }
