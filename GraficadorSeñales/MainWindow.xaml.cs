@@ -39,9 +39,15 @@ namespace GraficadorSeñales
             senoidal = new SeñalSenoidal(amplitud, fase, frecuencia);
             double periodoMuestreo = 1.0 / frecuenciamuestreo;
             plnGrafica.Points.Clear();
-            for (double i = tiempoinicial; i<= tiempofinal;i += periodoMuestreo)
+
+            for (double i = tiempoinicial; i <= tiempofinal; i += periodoMuestreo)
             {
-                plnGrafica.Points.Add( adaptarCoordenadas(i, senoidal.evaluar(i), tiempoinicial));
+                Muestra muestra = new Muestra(i, senoidal.evaluar(i));
+                senoidal.Muestras.Add(muestra);
+            }
+            foreach(Muestra muestra1 in senoidal.Muestras)
+            {
+                plnGrafica.Points.Add(adaptarCoordenadas(muestra1.X,muestra1.Y,tiempoinicial));
             }
             pnlEjeX.Points.Clear();
             pnlEjeX.Points.Add(adaptarCoordenadas(tiempoinicial, 0.0, tiempoinicial));
