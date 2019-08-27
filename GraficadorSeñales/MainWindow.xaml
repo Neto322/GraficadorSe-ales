@@ -23,13 +23,17 @@
         <TextBlock HorizontalAlignment="Left" Margin="259,75,0,0" TextWrapping="Wrap" Text="Tiempo Final" VerticalAlignment="Top"/>
         <TextBox x:Name="txtTiempo_Final" HorizontalAlignment="Left" Height="16" Margin="248,99,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="123"/>
         <Button x:Name="BtnGraficar" Content="Graficar" HorizontalAlignment="Left" Margin="582,0,0,0" VerticalAlignment="Top" Width="200" Height="107" Click="Graficar_Click"/>
-        <ScrollViewer x:Name="scrGrafica" HorizontalAlignment="Left" Height="272" Margin="47,10,0,0" Grid.Row="1" VerticalAlignment="Top" Width="700" VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Visible">
+        <ScrollViewer x:Name="scrGrafica" HorizontalAlignment="Left" Height="272" Margin="248,10,0,0" Grid.Row="1" VerticalAlignment="Top" Width="499" VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Visible">
             <Grid>
                 <Polyline Stroke="CornflowerBlue" StrokeThickness="2" Name="plnGrafica" ></Polyline>
                 <Polyline Stroke="Black" StrokeThickness="1" Name="pnlEjeX"></Polyline>
+                <Polyline Stroke="Black" StrokeThickness="1" Name="pnlEjeY"></Polyline>
             </Grid>
         </ScrollViewer>
         <TextBlock HorizontalAlignment="Left" Margin="407,35,0,0" TextWrapping="Wrap" Text="Frecuencia De Muestreo" VerticalAlignment="Top"/>
         <TextBox x:Name="txtFrecuenciaMuestreo" HorizontalAlignment="Left" Height="23" Margin="407,51,0,0" TextWrapping="Wrap" Text="aQUI" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="lblLimiteInferior" HorizontalAlignment="Left" Height="23" Margin="123,259,0,0" Grid.Row="1" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="120" TextAlignment="Right"/>
+        <TextBox x:Name="lblLimiteSuperior" HorizontalAlignment="Left" Height="24" Margin="123,10,0,0" Grid.Row="1" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="120" TextAlignment="Right"/>
+        <TextBox HorizontalAlignment="Left" Height="24" Margin="123,133,0,0" Grid.Row="1" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="120" TextAlignment="Right"/>
     </Grid>
 </Window>
