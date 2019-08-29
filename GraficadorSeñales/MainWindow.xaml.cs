@@ -30,29 +30,30 @@ namespace GraficadorSeñales
 
         private void Graficar_Click(object sender, RoutedEventArgs e)
         {
-            double amplitud = double.Parse(txtAmplitud.Text);
+           /* double amplitud = double.Parse(txtAmplitud.Text);
             double fase = double.Parse(txtFase.Text);
-            double frecuencia = double.Parse(txtFrecuencia.Text);
+            double frecuencia = double.Parse(txtFrecuencia.Text);*/
             double tiempoinicial = double.Parse(txtTiempo_Inicial.Text);
             double tiempofinal = double.Parse(txtTiempo_Final.Text);
             double frecuenciamuestreo = double.Parse(txtFrecuenciaMuestreo.Text);
-            senoidal = new SeñalSenoidal(amplitud, fase, frecuencia);
+            /* senoidal = new SeñalSenoidal(amplitud, fase, frecuencia);*/
+            SeñalParabolica parabolica = new SeñalParabolica();
             double periodoMuestreo = 1.0 / frecuenciamuestreo;
             double amplitudMaxima = 0.0;
             plnGrafica.Points.Clear();
         
             for (double i = tiempoinicial; i <= tiempofinal; i += periodoMuestreo)
             {
-                double valorMuestra = senoidal.evaluar(i);
+                double valorMuestra = parabolica.evaluar(i);
                 if(Math.Abs(valorMuestra) >= amplitudMaxima)
                 {
                     amplitudMaxima = Math.Abs(valorMuestra);
                 }
                 Muestra muestra = new Muestra(i, valorMuestra);
-        
-                senoidal.Muestras.Add(muestra);
+
+                parabolica.muestras.Add(muestra);
             }
-            foreach(Muestra muestra1 in senoidal.Muestras)
+            foreach(Muestra muestra1 in parabolica.muestras)
             {
                 plnGrafica.Points.Add(adaptarCoordenadas(muestra1.X,muestra1.Y,tiempoinicial,amplitudMaxima));
             }
