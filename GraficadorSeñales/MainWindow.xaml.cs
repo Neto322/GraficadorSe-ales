@@ -37,23 +37,24 @@ namespace GraficadorSeñales
             double tiempofinal = double.Parse(txtTiempo_Final.Text);
             double frecuenciamuestreo = double.Parse(txtFrecuenciaMuestreo.Text);
             /* senoidal = new SeñalSenoidal(amplitud, fase, frecuencia);*/
-            SeñalParabolica parabolica = new SeñalParabolica();
+            /*SeñalParabolica parabolica = new SeñalParabolica();*/
+            SeñalSigno signo = new SeñalSigno();
             double periodoMuestreo = 1.0 / frecuenciamuestreo;
             double amplitudMaxima = 0.0;
             plnGrafica.Points.Clear();
         
             for (double i = tiempoinicial; i <= tiempofinal; i += periodoMuestreo)
             {
-                double valorMuestra = parabolica.evaluar(i);
+                double valorMuestra = signo.evaluar(i);
                 if(Math.Abs(valorMuestra) >= amplitudMaxima)
                 {
                     amplitudMaxima = Math.Abs(valorMuestra);
                 }
                 Muestra muestra = new Muestra(i, valorMuestra);
 
-                parabolica.muestras.Add(muestra);
+                signo.muestras.Add(muestra);
             }
-            foreach(Muestra muestra1 in parabolica.muestras)
+            foreach(Muestra muestra1 in signo.muestras)
             {
                 plnGrafica.Points.Add(adaptarCoordenadas(muestra1.X,muestra1.Y,tiempoinicial,amplitudMaxima));
             }
