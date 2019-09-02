@@ -37,7 +37,7 @@ namespace GraficadorSeñales
             double tiempofinal = double.Parse(txtTiempo_Final.Text);
             double frecuenciamuestreo = double.Parse(txtFrecuenciaMuestreo.Text);
             /* senoidal = new SeñalSenoidal(amplitud, fase, frecuencia);*/
-            /*SeñalParabolica parabolica = new SeñalParabolica();*//
+            /*SeñalParabolica parabolica = new SeñalParabolica();*/
             SeñalSigno signo = new SeñalSigno();
             double periodoMuestreo = 1.0 / frecuenciamuestreo;
             double amplitudMaxima = 0.0;
