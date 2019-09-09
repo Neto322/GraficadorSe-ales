@@ -30,31 +30,37 @@ namespace GraficadorSeñales
 
         private void Graficar_Click(object sender, RoutedEventArgs e)
         {
-           /* double amplitud = double.Parse(txtAmplitud.Text);
+            /*
+            double amplitud = double.Parse(txtAmplitud.Text);
             double fase = double.Parse(txtFase.Text);
-            double frecuencia = double.Parse(txtFrecuencia.Text);*/
+            double frecuencia = double.Parse(txtFrecuencia.Text);
+            */
             double tiempoinicial = double.Parse(txtTiempo_Inicial.Text);
             double tiempofinal = double.Parse(txtTiempo_Final.Text);
             double frecuenciamuestreo = double.Parse(txtFrecuenciaMuestreo.Text);
-            /* senoidal = new SeñalSenoidal(amplitud, fase, frecuencia);*/
-            /*SeñalParabolica parabolica = new SeñalParabolica();*/
+            /*
+            senoidal = new SeñalSenoidal(amplitud, fase, frecuencia);
+            */
+            SeñalParabolica parabolica = new SeñalParabolica();
+            /*
             SeñalSigno signo = new SeñalSigno();
+            */
             double periodoMuestreo = 1.0 / frecuenciamuestreo;
             double amplitudMaxima = 0.0;
             plnGrafica.Points.Clear();
         
             for (double i = tiempoinicial; i <= tiempofinal; i += periodoMuestreo)
             {
-                double valorMuestra = signo.evaluar(i);
+                double valorMuestra = parabolica.evaluar(i);
                 if(Math.Abs(valorMuestra) >= amplitudMaxima)
                 {
                     amplitudMaxima = Math.Abs(valorMuestra);
                 }
                 Muestra muestra = new Muestra(i, valorMuestra);
 
-                signo.muestras.Add(muestra);
+                parabolica.muestras.Add(muestra);
             }
-            foreach(Muestra muestra1 in signo.muestras)
+            foreach(Muestra muestra1 in parabolica.muestras)
             {
                 plnGrafica.Points.Add(adaptarCoordenadas(muestra1.X,muestra1.Y,tiempoinicial,amplitudMaxima));
             }
@@ -72,6 +78,18 @@ namespace GraficadorSeñales
             return new Point((x - tiempoInicial) * scrGrafica.Width, (- 1 * (y * ( ( ( scrGrafica.Height / 2.0 ) ) - 25 ) / amplitudMaxima ) ) + ( scrGrafica.Height / 2f ) );
         }
 
-  
+        private void CbTipoSeñal_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            panelConfiguracion.Children.Clear();
+            switch(CbTipoSeñal.SelectedIndex)
+            {
+                case 0:
+
+                    break;
+                case 1:
+                    panelConfiguracion.Children.Add(new ConfiguracionSeñalSenoidal());
+                    break;
+            }
+        }
     }
 }
