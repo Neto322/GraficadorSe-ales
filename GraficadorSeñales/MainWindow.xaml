@@ -38,7 +38,7 @@
             </ComboBox.Background>
             <ComboBoxItem>Señal Parabolica</ComboBoxItem>
             <ComboBoxItem>Señal Senoidal</ComboBoxItem>
-            <ComboBoxItem></ComboBoxItem>
+            <ComboBoxItem>Señal Exponencial</ComboBoxItem>
         </ComboBox>
         <Grid x:Name="panelConfiguracion" HorizontalAlignment="Left" Height="125" Margin="30,64,0,0" VerticalAlignment="Top" Width="213" Grid.RowSpan="2"/>
     </Grid>

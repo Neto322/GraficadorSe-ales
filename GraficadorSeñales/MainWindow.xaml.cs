@@ -41,26 +41,45 @@ namespace GraficadorSeñales
             /*
             senoidal = new SeñalSenoidal(amplitud, fase, frecuencia);
             */
-            SeñalParabolica parabolica = new SeñalParabolica();
+            Señal señal;
+            switch(CbTipoSeñal.SelectedIndex)
+            {
+                case 0: // Parabolica bolica
+                    señal = new SeñalParabolica();
+                    break;
+                case 1: //Senoidal
+                    double amplitud = double.Parse(((ConfiguracionSeñalSenoidal)(panelConfiguracion.Children[0])).txtAmplitud.Text);
+                    double fase = double.Parse(((ConfiguracionSeñalSenoidal)(panelConfiguracion.Children[0])).txtFase.Text);
+                    double frecuencia = double.Parse(((ConfiguracionSeñalSenoidal)(panelConfiguracion.Children[0])).txtFrecuencia.Text);
+                    señal = new SeñalSenoidal(amplitud, fase, frecuencia);
+
+                    break;
+                case 2:
+                    double alpha = double.Parse(((ConfiguracionSeñalExponencial)(panelConfiguracion.Children[0])).txtAlpha.Text);
+                    señal = new SeñalExponencial(alpha);
+                    break;
+                default:
+                    señal = null;
+                    break;
+            }
+            señal.TiempoInicial = tiempoinicial;
+
+            señal.TiempoFinal = tiempofinal;
+
+            señal.FrecuenciaMuestreo = frecuenciamuestreo;
+
+            señal.construirSeñal();
+
+
             /*
             SeñalSigno signo = new SeñalSigno();
             */
-            double periodoMuestreo = 1.0 / frecuenciamuestreo;
-            double amplitudMaxima = 0.0;
+         
+            double amplitudMaxima = señal.AmplitudMaxima;
             plnGrafica.Points.Clear();
         
-            for (double i = tiempoinicial; i <= tiempofinal; i += periodoMuestreo)
-            {
-                double valorMuestra = parabolica.evaluar(i);
-                if(Math.Abs(valorMuestra) >= amplitudMaxima)
-                {
-                    amplitudMaxima = Math.Abs(valorMuestra);
-                }
-                Muestra muestra = new Muestra(i, valorMuestra);
-
-                parabolica.muestras.Add(muestra);
-            }
-            foreach(Muestra muestra1 in parabolica.muestras)
+           
+            foreach(Muestra muestra1 in señal.Muestras)
             {
                 plnGrafica.Points.Add(adaptarCoordenadas(muestra1.X,muestra1.Y,tiempoinicial,amplitudMaxima));
             }
@@ -89,6 +108,10 @@ namespace GraficadorSeñales
                 case 1:
                     panelConfiguracion.Children.Add(new ConfiguracionSeñalSenoidal());
                     break;
+                case 2:
+                    panelConfiguracion.Children.Add(new ConfiguracionSeñalExponencial());
+                    break;
+
             }
         }
     }
