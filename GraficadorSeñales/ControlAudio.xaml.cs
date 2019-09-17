@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-
+using Microsoft.Win32;
 namespace GraficadorSeñales
 {
     /// <summary>
@@ -23,6 +23,15 @@ namespace GraficadorSeñales
         public ControlAudio()
         {
             InitializeComponent();
+        }
+
+        private void BtnElegirArchivo_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog fileDialog = new OpenFileDialog();
+            if((bool)fileDialog.ShowDialog())
+            {
+                txtRutaArchivo.Text = fileDialog.FileName;
+            }
         }
     }
 }

@@ -20,8 +20,10 @@ namespace GraficadorSeñales
     /// </summary>
     public partial class MainWindow : Window
     {
-        SeñalSenoidal senoidal;
-       
+        double tiempoinicial;
+        double tiempofinal;
+        double frecuenciamuestreo;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -35,9 +37,7 @@ namespace GraficadorSeñales
             double fase = double.Parse(txtFase.Text);
             double frecuencia = double.Parse(txtFrecuencia.Text);
             */
-            double tiempoinicial = double.Parse(txtTiempo_Inicial.Text);
-            double tiempofinal = double.Parse(txtTiempo_Final.Text);
-            double frecuenciamuestreo = double.Parse(txtFrecuenciaMuestreo.Text);
+
             /*
             senoidal = new SeñalSenoidal(amplitud, fase, frecuencia);
             */
@@ -46,27 +46,40 @@ namespace GraficadorSeñales
             {
                 case 0: // Parabolica bolica
                     señal = new SeñalParabolica();
+       
                     break;
                 case 1: //Senoidal
                     double amplitud = double.Parse(((ConfiguracionSeñalSenoidal)(panelConfiguracion.Children[0])).txtAmplitud.Text);
                     double fase = double.Parse(((ConfiguracionSeñalSenoidal)(panelConfiguracion.Children[0])).txtFase.Text);
                     double frecuencia = double.Parse(((ConfiguracionSeñalSenoidal)(panelConfiguracion.Children[0])).txtFrecuencia.Text);
                     señal = new SeñalSenoidal(amplitud, fase, frecuencia);
-
+       
                     break;
                 case 2:
                     double alpha = double.Parse(((ConfiguracionSeñalExponencial)(panelConfiguracion.Children[0])).txtAlpha.Text);
                     señal = new SeñalExponencial(alpha);
                     break;
+                case 3:
+                    string rutaArchivo = ((ControlAudio)(panelConfiguracion.Children[0])).txtRutaArchivo.Text;
+                    señal = new SeñalAudio(rutaArchivo);
+                    txtTiempo_Inicial.Text = señal.TiempoInicial.ToString();
+                    txtTiempo_Final.Text = señal.TiempoInicial.ToString();
+                    txtFrecuenciaMuestreo.Text = señal.FrecuenciaMuestreo.ToString();
+                    break;
                 default:
                     señal = null;
                     break;
             }
-            señal.TiempoInicial = tiempoinicial;
 
-            señal.TiempoFinal = tiempofinal;
+            if (CbTipoSeñal.SelectedIndex != 3 && señal != null)
+            {
+                señal.TiempoInicial = tiempoinicial;
 
-            señal.FrecuenciaMuestreo = frecuenciamuestreo;
+                señal.TiempoFinal = tiempofinal;
+
+                señal.FrecuenciaMuestreo = frecuenciamuestreo;
+            }
+
 
             señal.construirSeñal();
 
@@ -110,6 +123,9 @@ namespace GraficadorSeñales
                     break;
                 case 2:
                     panelConfiguracion.Children.Add(new ConfiguracionSeñalExponencial());
+                    break;
+                case 3:
+                    panelConfiguracion.Children.Add(new ControlAudio());
                     break;
 
             }
