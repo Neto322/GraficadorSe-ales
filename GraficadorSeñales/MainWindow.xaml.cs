@@ -23,6 +23,9 @@ namespace GraficadorSeñales
         double tiempoinicial;
         double tiempofinal;
         double frecuenciamuestreo;
+        double amplitud;
+        double fase;
+        double frecuencia;
 
         public MainWindow()
         {
@@ -32,11 +35,9 @@ namespace GraficadorSeñales
 
         private void Graficar_Click(object sender, RoutedEventArgs e)
         {
-            /*
-            double amplitud = double.Parse(txtAmplitud.Text);
-            double fase = double.Parse(txtFase.Text);
-            double frecuencia = double.Parse(txtFrecuencia.Text);
-            */
+
+           
+           
 
             /*
             senoidal = new SeñalSenoidal(amplitud, fase, frecuencia);
@@ -49,9 +50,9 @@ namespace GraficadorSeñales
        
                     break;
                 case 1: //Senoidal
-                    double amplitud = double.Parse(((ConfiguracionSeñalSenoidal)(panelConfiguracion.Children[0])).txtAmplitud.Text);
-                    double fase = double.Parse(((ConfiguracionSeñalSenoidal)(panelConfiguracion.Children[0])).txtFase.Text);
-                    double frecuencia = double.Parse(((ConfiguracionSeñalSenoidal)(panelConfiguracion.Children[0])).txtFrecuencia.Text);
+                     amplitud = double.Parse(((ConfiguracionSeñalSenoidal)(panelConfiguracion.Children[0])).txtAmplitud.Text);
+                     fase = double.Parse(((ConfiguracionSeñalSenoidal)(panelConfiguracion.Children[0])).txtFase.Text);
+                     frecuencia = double.Parse(((ConfiguracionSeñalSenoidal)(panelConfiguracion.Children[0])).txtFrecuencia.Text);
                     señal = new SeñalSenoidal(amplitud, fase, frecuencia);
        
                     break;
