@@ -49,27 +49,24 @@
         <Grid x:Name="panelConfiguracion" HorizontalAlignment="Left" Height="125" Margin="30,64,0,0" VerticalAlignment="Top" Width="213"/>
         <ScrollViewer x:Name="scrGraficaResultante" HorizontalAlignment="Left" Height="272" Margin="147,145,0,0" VerticalAlignment="Top" Width="374" VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Visible" Grid.Column="1">
             <Grid>
-                <Polyline Stroke="CornflowerBlue" StrokeThickness="2" x:Name="plnGrafica1" />
-                <Polyline Stroke="Black" StrokeThickness="1" x:Name="pnlEjeX1"/>
-                <Polyline Stroke="Black" StrokeThickness="1" x:Name="pnlEjeY1"/>
+                <Polyline Stroke="CornflowerBlue" StrokeThickness="2" x:Name="plnGraficaResultante" />
+                <Polyline Stroke="Black" StrokeThickness="1" x:Name="pnlEjeXResultante"/>
+                <Polyline Stroke="Black" StrokeThickness="1" x:Name="pnlEjeYResultante"/>
             </Grid>
         </ScrollViewer>
         <TextBox x:Name="lblLimiteInferiorResultado" HorizontalAlignment="Left" Height="23" Margin="22,394,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="120" TextAlignment="Right" Grid.Column="1"/>
         <TextBox x:Name="lblLimiteSuperiorResultado" HorizontalAlignment="Left" Height="24" Margin="22,145,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="120" TextAlignment="Right" Grid.Column="1"/>
         <TextBox HorizontalAlignment="Left" Height="24" Margin="22,268,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="120" TextAlignment="Right" Grid.Column="1"/>
         <TextBlock HorizontalAlignment="Left" Margin="328,38,0,0" TextWrapping="Wrap" Text="Operacion" VerticalAlignment="Top" Height="19" Width="95"/>
-        <ComboBox x:Name="CbTipoSeñal_Copy" HorizontalAlignment="Left" Margin="404,35,0,0" VerticalAlignment="Top" Width="131" BorderBrush="#FFFFA1A1" Foreground="Black" SelectionChanged="CbTipoSeñal_SelectionChanged" Height="22" Grid.ColumnSpan="2">
+        <ComboBox x:Name="cbOperacion" HorizontalAlignment="Left" Margin="404,35,0,0" VerticalAlignment="Top" Width="131" BorderBrush="#FFFFA1A1" Foreground="Black"  Height="22" Grid.ColumnSpan="2" SelectionChanged="CbOperacion_SelectionChanged">
             <ComboBox.Background>
                 <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
                     <GradientStop Color="#FFF0F0F0" Offset="0"/>
                     <GradientStop Color="#FFE83A3A" Offset="1"/>
                 </LinearGradientBrush>
             </ComboBox.Background>
-            <ComboBoxItem Content="Señal Parabolica"/>
-            <ComboBoxItem Content="Señal Senoidal"/>
-            <ComboBoxItem Content="Señal Exponencial"/>
-            <ComboBoxItem Content="Señal Audiol"/>
-
+            <ComboBoxItem Content="Escala Amplitud"/>
         </ComboBox>
+        <Grid x:Name="panelConfiguracionOperacion" HorizontalAlignment="Left" Height="125" Margin="346,64,0,0" VerticalAlignment="Top" Width="213" Grid.ColumnSpan="2"/>
     </Grid>
 </Window>

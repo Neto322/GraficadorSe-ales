@@ -36,13 +36,18 @@ namespace GraficadorSeñales
         private void Graficar_Click(object sender, RoutedEventArgs e)
         {
 
-           
-           
+            tiempoinicial = double.Parse(txtTiempo_Inicial.Text);
+            tiempofinal = double.Parse(txtTiempo_Final.Text);
+            frecuenciamuestreo = double.Parse(txtFrecuenciaMuestreo.Text);
+
 
             /*
             senoidal = new SeñalSenoidal(amplitud, fase, frecuencia);
             */
             Señal señal;
+            Señal señalResultante;
+
+
             switch(CbTipoSeñal.SelectedIndex)
             {
                 case 0: // Parabolica bolica
@@ -89,22 +94,55 @@ namespace GraficadorSeñales
             SeñalSigno signo = new SeñalSigno();
             */
          
+            switch(cbOperacion.SelectedIndex)
+            {
+                case 0: // Escala De Amplitud
+                    double factorEscala = double.Parse(((OperacionEscalaAmplitud)(panelConfiguracionOperacion.Children[0])).txtFactorEscala.Text);
+                    señalResultante = Señal.escalarAmplitud(señal, factorEscala); 
+                    break;
+                default:
+                    señalResultante = null;
+                    break;
+            }
+
             double amplitudMaxima = señal.AmplitudMaxima;
+
+            double amplitudMaximaResultado = señalResultante.AmplitudMaxima;
             plnGrafica.Points.Clear();
-        
+
+            plnGraficaResultante.Points.Clear();
            
             foreach(Muestra muestra1 in señal.Muestras)
             {
+
                 plnGrafica.Points.Add(adaptarCoordenadas(muestra1.X,muestra1.Y,tiempoinicial,amplitudMaxima));
+
             }
-            lblLimiteSuperior.Text = amplitudMaxima.ToString();
-            lblLimiteInferior.Text = "-" + amplitudMaxima.ToString();
+            foreach(Muestra muestra in señalResultante.Muestras)
+            {
+                plnGraficaResultante.Points.Add(adaptarCoordenadas(muestra.X, muestra.Y, tiempoinicial, amplitudMaximaResultado));
+            }
+            lblLimiteSuperior.Text = amplitudMaxima.ToString("F");
+            lblLimiteInferior.Text = "-" + amplitudMaxima.ToString("F");
+
+            lblLimiteInferiorResultado.Text = "-" + amplitudMaximaResultado.ToString("F");
+            lblLimiteSuperiorResultado.Text = amplitudMaximaResultado.ToString("F");
+
+
             pnlEjeX.Points.Clear();
             pnlEjeX.Points.Add(adaptarCoordenadas(tiempoinicial, 0.0, tiempoinicial,amplitudMaxima));
             pnlEjeX.Points.Add(adaptarCoordenadas(tiempofinal, 0.0, tiempoinicial,amplitudMaxima));
             pnlEjeY.Points.Clear();
             pnlEjeY.Points.Add(adaptarCoordenadas(0.0,amplitudMaxima,tiempoinicial,amplitudMaxima));
             pnlEjeY.Points.Add(adaptarCoordenadas(0.0, -amplitudMaxima, tiempoinicial, amplitudMaxima));
+
+            pnlEjeXResultante.Points.Clear();
+            pnlEjeXResultante.Points.Add(adaptarCoordenadas(tiempoinicial, 0.0, tiempoinicial, amplitudMaximaResultado));
+            pnlEjeXResultante.Points.Add(adaptarCoordenadas(tiempofinal, 0.0, tiempoinicial, amplitudMaximaResultado));
+
+            pnlEjeYResultante.Points.Clear();
+            pnlEjeYResultante.Points.Add(adaptarCoordenadas(0.0, amplitudMaximaResultado, tiempoinicial, amplitudMaximaResultado));
+            pnlEjeYResultante.Points.Add(adaptarCoordenadas(0.0, amplitudMaximaResultado, tiempoinicial, amplitudMaximaResultado));
         }
         public Point adaptarCoordenadas(double x,double y,double tiempoInicial, double amplitudMaxima)
         {
@@ -129,6 +167,20 @@ namespace GraficadorSeñales
                     panelConfiguracion.Children.Add(new ControlAudio());
                     break;
 
+            }
+        }
+
+        private void CbOperacion_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            panelConfiguracionOperacion.Children.Clear();
+            switch(cbOperacion.SelectedIndex)
+            {
+                case 0:
+                    panelConfiguracionOperacion.Children.Add(new OperacionEscalaAmplitud());
+                    break;
+                default:
+
+                    break;
             }
         }
     }
