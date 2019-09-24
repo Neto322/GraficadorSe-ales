@@ -97,17 +97,21 @@ namespace GraficadorSeñales
             switch(cbOperacion.SelectedIndex)
             {
                 case 0: // Escala De Amplitud
-                    double factorEscala = double.Parse(((OperacionEscalaAmplitud)(panelConfiguracionOperacion.Children[0])).txtFactorEscala.Text);
-                    señalResultante = Señal.escalarAmplitud(señal, factorEscala); 
+                    double factorDesplaze = double.Parse(((OperacionDesplazamientoAmplitud)panelConfiguracionOperacion.Children[0]).txtDesplazamientoAmplitud.Text);
+                    señalResultante = Señal.desplazarAmplitud(señal, factorDesplaze); 
+                    break;
+                case 1:
+                    double factorEscala = double.Parse(((OperacionEscalaAmplitud)panelConfiguracionOperacion.Children[0]).txtFactorEscala.Text);
+                    señalResultante = Señal.escalarAmplitud(señal, factorEscala);
                     break;
                 default:
                     señalResultante = null;
                     break;
             }
 
-            double amplitudMaxima = señal.AmplitudMaxima;
+            double amplitudMaxima = (señal.AmplitudMaxima >= señalResultante.AmplitudMaxima) ? señal.AmplitudMaxima : señalResultante.AmplitudMaxima;
 
-            double amplitudMaximaResultado = señalResultante.AmplitudMaxima;
+          
             plnGrafica.Points.Clear();
 
             plnGraficaResultante.Points.Clear();
@@ -120,13 +124,13 @@ namespace GraficadorSeñales
             }
             foreach(Muestra muestra in señalResultante.Muestras)
             {
-                plnGraficaResultante.Points.Add(adaptarCoordenadas(muestra.X, muestra.Y, tiempoinicial, amplitudMaximaResultado));
+                plnGraficaResultante.Points.Add(adaptarCoordenadas(muestra.X, muestra.Y, tiempoinicial, amplitudMaxima));
             }
             lblLimiteSuperior.Text = amplitudMaxima.ToString("F");
             lblLimiteInferior.Text = "-" + amplitudMaxima.ToString("F");
 
-            lblLimiteInferiorResultado.Text = "-" + amplitudMaximaResultado.ToString("F");
-            lblLimiteSuperiorResultado.Text = amplitudMaximaResultado.ToString("F");
+            lblLimiteInferiorResultado.Text = "-" + amplitudMaxima.ToString("F");
+            lblLimiteSuperiorResultado.Text = amplitudMaxima.ToString("F");
 
 
             pnlEjeX.Points.Clear();
@@ -137,12 +141,12 @@ namespace GraficadorSeñales
             pnlEjeY.Points.Add(adaptarCoordenadas(0.0, -amplitudMaxima, tiempoinicial, amplitudMaxima));
 
             pnlEjeXResultante.Points.Clear();
-            pnlEjeXResultante.Points.Add(adaptarCoordenadas(tiempoinicial, 0.0, tiempoinicial, amplitudMaximaResultado));
-            pnlEjeXResultante.Points.Add(adaptarCoordenadas(tiempofinal, 0.0, tiempoinicial, amplitudMaximaResultado));
+            pnlEjeXResultante.Points.Add(adaptarCoordenadas(tiempoinicial, 0.0, tiempoinicial, amplitudMaxima));
+            pnlEjeXResultante.Points.Add(adaptarCoordenadas(tiempofinal, 0.0, tiempoinicial, amplitudMaxima));
 
             pnlEjeYResultante.Points.Clear();
-            pnlEjeYResultante.Points.Add(adaptarCoordenadas(0.0, amplitudMaximaResultado, tiempoinicial, amplitudMaximaResultado));
-            pnlEjeYResultante.Points.Add(adaptarCoordenadas(0.0, amplitudMaximaResultado, tiempoinicial, amplitudMaximaResultado));
+            pnlEjeYResultante.Points.Add(adaptarCoordenadas(0.0, amplitudMaxima, tiempoinicial, amplitudMaxima));
+            pnlEjeYResultante.Points.Add(adaptarCoordenadas(0.0, amplitudMaxima, tiempoinicial, amplitudMaxima));
         }
         public Point adaptarCoordenadas(double x,double y,double tiempoInicial, double amplitudMaxima)
         {
@@ -154,8 +158,8 @@ namespace GraficadorSeñales
             panelConfiguracion.Children.Clear();
             switch(CbTipoSeñal.SelectedIndex)
             {
-                case 0:
-
+                case 0:// Parabolica
+                    
                     break;
                 case 1:
                     panelConfiguracion.Children.Add(new ConfiguracionSeñalSenoidal());
@@ -176,6 +180,9 @@ namespace GraficadorSeñales
             switch(cbOperacion.SelectedIndex)
             {
                 case 0:
+                    panelConfiguracionOperacion.Children.Add(new OperacionDesplazamientoAmplitud());
+                    break;
+                case 1:
                     panelConfiguracionOperacion.Children.Add(new OperacionEscalaAmplitud());
                     break;
                 default:

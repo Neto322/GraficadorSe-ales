@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid  HorizontalAlignment="Left" Height="125" Margin="10,20,0,0" VerticalAlignment="Top" Width="213" Grid.RowSpan="2">
-        <TextBlock HorizontalAlignment="Left" Margin="12,12,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="Alpha(α)  Alfa (Α α) es la primera letra del alfabeto griego. En griego antiguo su nombre era alpha [ˈalpʰa], nombre que deriva de la antigua letra fenicia ʾalp 'buey'. Su origen gráfico es una cabeza de buey invertida, Las letras que surgieron de Alfa incluyen a la A latina y la A cirílica." />
+        <TextBlock HorizontalAlignment="Left" Margin="12,12,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="Alpha(α) ." />
         <TextBox x:Name="txtAlpha" HorizontalAlignment="Left" Height="18" Margin="74,10,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" />
     </Grid>
 </UserControl>

@@ -65,6 +65,7 @@
                     <GradientStop Color="#FFE83A3A" Offset="1"/>
                 </LinearGradientBrush>
             </ComboBox.Background>
+            <ComboBoxItem Content="Desplazamiento de Amplitud "/>
             <ComboBoxItem Content="Escala Amplitud"/>
         </ComboBox>
         <Grid x:Name="panelConfiguracionOperacion" HorizontalAlignment="Left" Height="125" Margin="346,64,0,0" VerticalAlignment="Top" Width="213" Grid.ColumnSpan="2"/>
