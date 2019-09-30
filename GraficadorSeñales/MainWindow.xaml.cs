@@ -104,6 +104,13 @@ namespace GraficadorSeñales
                     double factorEscala = double.Parse(((OperacionEscalaAmplitud)panelConfiguracionOperacion.Children[0]).txtFactorEscala.Text);
                     señalResultante = Señal.escalarAmplitud(señal, factorEscala);
                     break;
+                case 2:
+                    señalResultante = null;
+                    break;
+                case 3:
+                    double factorExponencual = double.Parse(((OperacionEscalaExponencial)panelConfiguracionOperacion.Children[0]).txtFactorExponencial.Text);
+                    señalResultante = Señal.escalarExponencial(señal, factorExponencual);
+                    break;
                 default:
                     señalResultante = null;
                     break;
@@ -177,8 +184,8 @@ namespace GraficadorSeñales
         private void CbOperacion_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             panelConfiguracionOperacion.Children.Clear();
-            MostrarSegundaSeñal(true);
-            switch(cbOperacion.SelectedIndex)
+            MostrarSegundaSeñal(false);
+            switch (cbOperacion.SelectedIndex)
             {
                 case 0:
                     panelConfiguracionOperacion.Children.Add(new OperacionDesplazamientoAmplitud());
@@ -189,7 +196,9 @@ namespace GraficadorSeñales
                 case 2:
                     MostrarSegundaSeñal(true);
                     break;
-                    
+                case 3:
+                    panelConfiguracionOperacion.Children.Add(new OperacionEscalaExponencial());
+                    break;
                 default:
 
                     break;

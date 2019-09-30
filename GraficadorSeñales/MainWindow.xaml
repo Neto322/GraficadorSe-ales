@@ -68,6 +68,7 @@
             <ComboBoxItem Content="Desplazamiento de Amplitud "/>
             <ComboBoxItem Content="Escala Amplitud"/>
             <ComboBoxItem Content="Multiplcar Señales"/>
+            <ComboBoxItem Content="EscalaExponencial"/>
         </ComboBox>
         <Grid x:Name="panelConfiguracionOperacion" HorizontalAlignment="Left" Height="125" Margin="346,64,0,0" VerticalAlignment="Top" Width="213" Grid.ColumnSpan="2"/>
         <TextBlock x:Name="lblTopoSeñal_2" HorizontalAlignment="Left" Margin="27,35,0,0" TextWrapping="Wrap" Text="Tipo de señal" VerticalAlignment="Top" Height="19" Width="95" Grid.Column="1"/>
