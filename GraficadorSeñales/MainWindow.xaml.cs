@@ -46,7 +46,7 @@ namespace GraficadorSeñales
             */
             Señal señal;
             Señal señalResultante;
-
+            Señal segundaseñal = null;
 
             switch(CbTipoSeñal.SelectedIndex)
             {
@@ -94,6 +94,44 @@ namespace GraficadorSeñales
             SeñalSigno signo = new SeñalSigno();
             */
          
+            if(cbOperacion.SelectedIndex == 2)
+            {
+                switch (CbTipoSeñal_2.SelectedIndex)
+                {
+                    case 0: // Parabolica bolica
+                        segundaseñal = new SeñalParabolica();
+
+                        break;
+                    case 1: //Senoidal
+                        amplitud = double.Parse(((ConfiguracionSeñalSenoidal)(panelConfiguracion_2.Children[0])).txtAmplitud.Text);
+                        fase = double.Parse(((ConfiguracionSeñalSenoidal)(panelConfiguracion_2.Children[0])).txtFase.Text);
+                        frecuencia = double.Parse(((ConfiguracionSeñalSenoidal)(panelConfiguracion_2.Children[0])).txtFrecuencia.Text);
+                        segundaseñal = new SeñalSenoidal(amplitud, fase, frecuencia);
+
+                        break;
+                    case 2:
+                        double alpha = double.Parse(((ConfiguracionSeñalExponencial)(panelConfiguracion_2.Children[0])).txtAlpha.Text);
+                        segundaseñal = new SeñalExponencial(alpha);
+                        break;
+                    case 3:
+                        string rutaArchivo = ((ControlAudio)(panelConfiguracion_2.Children[0])).txtRutaArchivo.Text;
+                        segundaseñal = new SeñalAudio(rutaArchivo);
+                        txtTiempo_Inicial.Text = segundaseñal.TiempoInicial.ToString();
+                        txtTiempo_Final.Text = segundaseñal.TiempoInicial.ToString();
+                        txtFrecuenciaMuestreo.Text = segundaseñal.FrecuenciaMuestreo.ToString();
+                        break;
+                    default:
+                        segundaseñal = null;
+                        break;
+                }
+                if(CbTipoSeñal_2.SelectedIndex != 2 && segundaseñal != null)
+                {
+                    segundaseñal.TiempoInicial = tiempoinicial;
+                    segundaseñal.TiempoFinal = tiempofinal;
+                    segundaseñal.FrecuenciaMuestreo = frecuenciamuestreo;
+                    segundaseñal.construirSeñal();
+                }
+            }
             switch(cbOperacion.SelectedIndex)
             {
                 case 0: // Escala De Amplitud
@@ -105,7 +143,8 @@ namespace GraficadorSeñales
                     señalResultante = Señal.escalarAmplitud(señal, factorEscala);
                     break;
                 case 2:
-                    señalResultante = null;
+                    señalResultante = Señal.multiplicarseñales(señal, segundaseñal);
+
                     break;
                 case 3:
                     double factorExponencual = double.Parse(((OperacionEscalaExponencial)panelConfiguracionOperacion.Children[0]).txtFactorExponencial.Text);
@@ -116,12 +155,16 @@ namespace GraficadorSeñales
                     break;
             }
 
-            double amplitudMaxima = (señal.AmplitudMaxima >= señalResultante.AmplitudMaxima) ? señal.AmplitudMaxima : señalResultante.AmplitudMaxima;
 
+            //Elige entre la 1ra y la resultante.
+            double amplitudMaxima = (señal.AmplitudMaxima >= señalResultante.AmplitudMaxima) ? señal.AmplitudMaxima : señalResultante.AmplitudMaxima;
+            //Elige entre la mas grande de la 1ra , resultante y la segunda.
+            amplitudMaxima = (amplitudMaxima > segundaseñal.AmplitudMaxima) ? amplitudMaxima : segundaseñal.AmplitudMaxima;
           
             plnGrafica.Points.Clear();
-
             plnGraficaResultante.Points.Clear();
+            plnGrafica_2.Points.Clear();
+           
            
             foreach(Muestra muestra1 in señal.Muestras)
             {
@@ -133,6 +176,14 @@ namespace GraficadorSeñales
             {
                 plnGraficaResultante.Points.Add(adaptarCoordenadas(muestra.X, muestra.Y, tiempoinicial, amplitudMaxima));
             }
+            if(segundaseñal != null)
+            {
+                foreach (Muestra muestra in segundaseñal.Muestras)
+                {
+                    plnGrafica_2.Points.Add(adaptarCoordenadas(muestra.X, muestra.Y, tiempoinicial, amplitudMaxima));
+                }
+            }
+        
             lblLimiteSuperior.Text = amplitudMaxima.ToString("F");
             lblLimiteInferior.Text = "-" + amplitudMaxima.ToString("F");
 
