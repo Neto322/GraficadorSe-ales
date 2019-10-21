@@ -120,6 +120,7 @@ namespace GraficadorSeñales
                         txtTiempo_Final.Text = segundaseñal.TiempoInicial.ToString();
                         txtFrecuenciaMuestreo.Text = segundaseñal.FrecuenciaMuestreo.ToString();
                         break;
+                       
                     default:
                         segundaseñal = null;
                         break;
@@ -150,6 +151,9 @@ namespace GraficadorSeñales
                     double factorExponencual = double.Parse(((OperacionEscalaExponencial)panelConfiguracionOperacion.Children[0]).txtFactorExponencial.Text);
                     señalResultante = Señal.escalarExponencial(señal, factorExponencual);
                     break;
+                case 4:
+                    señalResultante = Señal.transformadaFourirer(señal);
+                break;
                 default:
                     señalResultante = null;
                     break;
@@ -250,6 +254,9 @@ namespace GraficadorSeñales
                 case 3:
                     panelConfiguracionOperacion.Children.Add(new OperacionEscalaExponencial());
                     break;
+                case 4:
+
+                break;
                 default:
 
                     break;
