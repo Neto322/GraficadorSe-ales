@@ -28,8 +28,6 @@ namespace GraficadorSeñales
                 if(Math.Abs(muestra)> AmplitudMaxima)
                 {
                     AmplitudMaxima = Math.Abs(muestra);
-
-                 
                 }
             }
 

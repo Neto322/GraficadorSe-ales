@@ -144,7 +144,7 @@ namespace GraficadorSeñales
                     señalResultante = Señal.escalarAmplitud(señal, factorEscala);
                     break;
                 case 2:
-                    señalResultante = Señal.multiplicarseñales(señal, segundaseñal);
+                    señalResultante = Señal.multiplicarseñales(señal,segundaseñal);
 
                     break;
                 case 3:
@@ -163,8 +163,11 @@ namespace GraficadorSeñales
             //Elige entre la 1ra y la resultante.
             double amplitudMaxima = (señal.AmplitudMaxima >= señalResultante.AmplitudMaxima) ? señal.AmplitudMaxima : señalResultante.AmplitudMaxima;
             //Elige entre la mas grande de la 1ra , resultante y la segunda.
-            amplitudMaxima = (amplitudMaxima > segundaseñal.AmplitudMaxima) ? amplitudMaxima : segundaseñal.AmplitudMaxima;
-          
+            if (cbOperacion.SelectedIndex == 2)
+            {
+                amplitudMaxima = (amplitudMaxima > segundaseñal.AmplitudMaxima) ? amplitudMaxima : segundaseñal.AmplitudMaxima;
+            }
+
             plnGrafica.Points.Clear();
             plnGraficaResultante.Points.Clear();
             plnGrafica_2.Points.Clear();
@@ -187,7 +190,19 @@ namespace GraficadorSeñales
                     plnGrafica_2.Points.Add(adaptarCoordenadas(muestra.X, muestra.Y, tiempoinicial, amplitudMaxima));
                 }
             }
-        
+            if(cbOperacion.SelectedIndex == 4)
+            {
+                int indicemaximo = 0;
+                for(int i =0; i < señalResultante.Muestras.Count/2; i++)
+                {
+                    if(señalResultante.Muestras[i].Y > señalResultante.Muestras[indicemaximo].Y)
+                    {
+                        indicemaximo = i;
+                    }
+                }
+                double frecuencia = (double)(indicemaximo * señalResultante.FrecuenciaMuestreo) / (double)señalResultante.Muestras.Count;
+                lblHertz.Text = frecuencia.ToString("N") + "Hz";
+            }
             lblLimiteSuperior.Text = amplitudMaxima.ToString("F");
             lblLimiteInferior.Text = "-" + amplitudMaxima.ToString("F");
 
